@@ -73,10 +73,10 @@ module.exports = function(grunt) {
  
     shell: {
       prodServer: {
-        command: 'git push origin master',
+        // command: 'git push origin master',
         command: 'git push live master'
       }
-    },
+    }
   });
 
   grunt.event.on('watch', function(action, filepath, target) {
@@ -117,15 +117,18 @@ module.exports = function(grunt) {
   ]
   );
 
+
+
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
-      // add your production server task here
+      grunt.task.run(['shell']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
+    'build',
+    'upload'
   ]);
 };
