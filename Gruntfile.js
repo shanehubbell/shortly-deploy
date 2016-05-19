@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         separator: ';',
       },
       dist: {
-        src: ['public/client/*.js'],
+        src: ['public/client/**.js'],
         dest: 'public/client/dist/concat.js',
       },
 
@@ -29,6 +29,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      my_target: {
+        files: {
+          'public/client/dist/uglified.js': ['public/client/dist/concat.js']
+        }
+      }
     },
 
     eslint: {
