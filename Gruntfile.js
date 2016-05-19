@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        'public/client/**.js'
       ]
     },
 
@@ -90,7 +90,12 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-  ]);
+    'eslint'
+
+    //grunt.fail.fatal(error)
+    //http://gruntjs.com/api/grunt.fail
+  ]
+  );
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
@@ -103,6 +108,4 @@ module.exports = function(grunt) {
   grunt.registerTask('deploy', [
     // add your deploy tasks here
   ]);
-
-
 };
