@@ -43,6 +43,15 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
+      options: {
+        shorthandCompacting: false,
+        roundingPrecision: -1
+      },
+      target: {
+        files: {
+          'public/min.css': ['public/style.css']
+        }
+      }
     },
 
     watch: {
@@ -64,8 +73,14 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push origin master',
+        command: 'git push live master'
       }
     },
+  });
+
+  grunt.event.on('watch', function(action, filepath, target) {
+    grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -86,12 +101,17 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
+    'concat',
+    'uglify',
+    'eslint',
     'mochaTest'
   ]);
 
   grunt.registerTask('build', [
+    'mochaTest',
+    'concat',
+    'uglify',
     'eslint'
-
     //grunt.fail.fatal(error)
     //http://gruntjs.com/api/grunt.fail
   ]
