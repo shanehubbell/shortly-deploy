@@ -1,6 +1,6 @@
 var path = require('path');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost:27017'); 
 
 //connection: {
 //     filename: path.join(__dirname, '../db/shortly.sqlite')
@@ -11,34 +11,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Connected to mongoose DB');
-});
-
-var Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
-var urls = new Schema ({
-  //id? Nope: http://stackoverflow.com/questions/8111846/how-to-set-objectid-as-a-data-type-in-mongoose
-  url: String,
-  baseURL: String,
-  code: String,
-  title: String,
-  visits: Number,
-  timestamps: { //http://mongoosejs.com/docs/guide.html#timestamps
-    type: Date,
-    default: Date.now
-  } 
-});
-
-var users = new Schema ({
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: String,
-  timestamps: {
-    type: Date,
-    default: Date.now
-  } 
 });
 
 ///////////////////////////////////////////////////////////
@@ -79,5 +51,3 @@ var users = new Schema ({
 //     });
 //   }
 // });
-
-module.exports = db;
